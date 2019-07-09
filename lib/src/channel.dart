@@ -9,6 +9,12 @@ import 'package:async/async.dart';
 import 'package:crypto/crypto.dart';
 import 'package:stream_channel/stream_channel.dart';
 
+import '../stub.dart'
+    // ignore: uri_does_not_exist
+    if (dart.library.html) '../html.dart'
+    // ignore: uri_does_not_exist
+    if (dart.library.io) '../io.dart';
+
 import 'copy/web_socket_impl.dart';
 
 /// A [StreamChannel] that communicates over a WebSocket.
@@ -94,6 +100,12 @@ class WebSocketChannel extends StreamChannelMixin {
       : _webSocket = WebSocketImpl.fromSocket(
             channel.stream, channel.sink, protocol, serverSide)
           ..pingInterval = pingInterval;
+
+  factory WebSocketChannel.platform(String url, {Iterable<String> protocols,
+      Map<String, dynamic> headers,
+      Duration pingInterval}) {
+        return platformConnect(url, protocols: protocols, headers: headers, pingInterval: pingInterval);
+      }
 }
 
 /// The sink exposed by a [WebSocketChannel].

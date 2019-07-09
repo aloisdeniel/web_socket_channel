@@ -14,6 +14,13 @@ import 'src/channel.dart';
 import 'src/exception.dart';
 import 'src/sink_completer.dart';
 
+WebSocketChannel platformConnect(String url,
+        {Iterable<String> protocols,
+        Map<String, dynamic> headers,
+        Duration pingInterval}) =>
+    IOWebSocketChannel.connect(url,
+        protocols: protocols, headers: headers, pingInterval: pingInterval);
+
 /// A [WebSocketChannel] that communicates using a `dart:io` [WebSocket].
 class IOWebSocketChannel extends StreamChannelMixin
     implements WebSocketChannel {

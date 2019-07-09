@@ -14,6 +14,12 @@ import 'package:stream_channel/stream_channel.dart';
 import 'src/channel.dart';
 import 'src/exception.dart';
 
+WebSocketChannel platformConnect(String url,
+        {Iterable<String> protocols,
+        Map<String, dynamic> headers,
+        Duration pingInterval}) =>
+    HtmlWebSocketChannel.connect(url, protocols: protocols);
+
 /// A [WebSocketChannel] that communicates using a `dart:html` [WebSocket].
 class HtmlWebSocketChannel extends StreamChannelMixin
     implements WebSocketChannel {
